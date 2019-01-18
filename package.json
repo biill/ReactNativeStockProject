@@ -16,7 +16,9 @@
     "antd": "^3.12.3",
     "axios": "^0.18.0",
     "expo": "^32.0.0",
+    "moment": "^2.23.0",
     "react": "16.5.0",
+    "react-moment": "^0.8.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-ultimate-listview": "^3.3.0",
     "react-native-vector-icons": "^6.1.0",
@@ -30,7 +32,8 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
-    "jest-expo": "^32.0.0"
+    "jest-expo": "^32.0.0",
+    "remote-redux-devtools": "^0.5.16"
   },
   "private": true
 }

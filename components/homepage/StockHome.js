@@ -60,7 +60,7 @@ export default class StockHome extends React.Component {
           >
             {/* underlayColor="#202020" */}
 
-            <Text style={styles.yahooText}>Yahoo!</Text>
+            <Text style={styles.yahooText}>Stock</Text>
           </TouchableHighlight>
 
           <View style={styles.footerMiddle}>

@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
+import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { fetchStockBySector } from '../../stores/stockReducer';
 
 class Stock extends Component {
   constructor(props) {
     super(props);
-    this.state = { sectors: this.props.sectors };
   }
 
   componentDidMount() {
-    fetchStockBySector();
+    this.props.fetchStockBySector();
+    setInterval(() => this.props.fetchStockBySector(), 5000);
     this.setState = { stocks: this.props.sectors };
   }
+
   render() {
+    //if (this.props.isFetching) return <Text>Nothing</Text>;
     return (
       <View>
         <ScrollView
@@ -23,6 +26,16 @@ class Stock extends Component {
           automaticallyAdjustContentInsets={false}
           scrollEventThrottle={200}
         />
+        {this.props.sectors.map((item, index) => {
+          const date = new Date(item.lastUpdated);
+          console.log(date, 'this is the data');
+          return (
+            <Text key={index}>
+              {item.name}
+              {parseFloat(item.performance).toFixed(3)} %
+            </Text>
+          );
+        })}
       </View>
     );
   }

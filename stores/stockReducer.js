@@ -36,13 +36,12 @@ export const gotData = () => ({
 });
 
 export const fetchStockBySector = () => {
-  console.log('reach here');
   return async dispatch => {
-    // dispatch(isFetching());
+    dispatch(isFetching());
     const { data } = await axios.get(
       'https://api.iextrading.com/1.0/stock/market/sector-performance'
     );
-    console.log(data, 'nothing');
+
     const action = gotStockBySectorFromAPI(data);
     dispatch(action);
     dispatch(gotData());
