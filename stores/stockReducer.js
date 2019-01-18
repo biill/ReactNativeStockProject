@@ -3,6 +3,7 @@ import axios from 'axios';
 const GOT_STOCK_SECTOR_FROM_API = 'GOT_STOCK_SECTOR_FROM_API';
 const IS_FETCHING = 'IS_FETCHING';
 const GOT_DATA = 'GOT_DATA';
+const SELECTED_STOCK = 'SELECTED_STOCK';
 // const ADD_CAMPUS = 'ADD_CAMPUS';
 // const REMOVE_CAMPUS = 'REMOVE_CAMPUS';
 // const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
@@ -35,15 +36,24 @@ export const gotData = () => ({
   type: GOT_DATA
 });
 
-export const fetchStockBySector = () => {
+export const gotSelectedStock = (name, data) => ({
+  type: GOT_STOCK_FROM_API,
+  name,
+  data
+});
+
+export const fetchStock = name => {
   return async dispatch => {
     dispatch(isFetching());
-    const { data } = await axios.get(
-      'https://api.iextrading.com/1.0/stock/market/sector-performance'
-    );
-
-    const action = gotStockBySectorFromAPI(data);
-    dispatch(action);
+    let res;
+    if (name) {
+      // res = await axios.get(`https://api.iextrading.com/1.0/stock/${name}/chart`);
+      res = await axios.get(`https://api.iextrading.com/1.0/stock/aapl/chart`);
+    } else {
+      res = await axios.get('https://api.iextrading.com/1.0/stock/market/sector-performance');
+      const action = gotStockBySectorFromAPI(res.data);
+      dispatch(action);
+    }
     dispatch(gotData());
   };
 };
@@ -66,7 +76,8 @@ export const fetchStockBySector = () => {
 
 const initialState = {
   sectors: [],
-  isFetching: false
+  isFetching: false,
+  selectedStock: { name: '', data: [] }
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -76,10 +87,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, isFetching: false };
     case IS_FETCHING:
       return { ...state, isFetching: true };
-    // case ADD_CAMPUS:
-    //   console.log(action.campus);
-    //   if (state.filter(campus => campus.name == action.campus.name).length === 1) return [...state];
-    //   else return [...state, action.campus];
+    case SELECTED_STOCK:
+      return { ...state, selectedStock: { name: action.name, data: [] } };
     // case REMOVE_CAMPUS:
     //   const newState = state.filter(campus => campus.id != action.id);
     //   return newState;

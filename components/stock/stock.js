@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
-import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { fetchStockBySector } from '../../stores/stockReducer';
+import { fetchStock } from '../../stores/stockReducer';
 
 class Stock extends Component {
   constructor(props) {
@@ -47,7 +46,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchStockBySector: () => dispatch(fetchStockBySector())
+  fetchStockBySector: () => dispatch(fetchStock())
 });
 
 export default connect(
