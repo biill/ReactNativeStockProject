@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { fetchStockBySector } from '../../stores/stockReducer';
 
 class Stock extends Component {
   constructor(props) {
     super(props);
-    this.state = { stocks: [] };
+    this.state = { sectors: this.props.sectors };
   }
 
-  async componentDidMount() {
-    const response = await axios.get(
-      'https://api.iextrading.com/1.0/stock/market/sector-performance'
-    );
-    console.log(response.data);
-    this.setState = { stocks: response.data };
+  componentDidMount() {
+    fetchStockBySector();
+    this.setState = { stocks: this.props.sectors };
   }
   render() {
-    console.log(this.state.stocks);
     return (
       <View>
         <ScrollView
@@ -31,4 +28,16 @@ class Stock extends Component {
   }
 }
 
-export default Stock;
+const mapStateToProps = state => ({
+  sectors: state.stockReducer.sectors,
+  isFetching: state.stockReducer.isFetching
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchStockBySector: () => dispatch(fetchStockBySector())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Stock);

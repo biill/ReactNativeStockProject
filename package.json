@@ -21,6 +21,11 @@
     "react-native-ultimate-listview": "^3.3.0",
     "react-native-vector-icons": "^6.1.0",
     "react-navigation": "^3.0.9",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.7",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
     "rn-viewpager": "^1.2.9"
   },
   "devDependencies": {
