@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import Echarts from 'native-echarts';

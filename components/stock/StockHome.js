@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Linking,
-  ListView,
+  TextInput,
   Platform,
   Text,
   TouchableHighlight,
@@ -17,11 +17,12 @@ import StockInfo2 from './StockInfo2';
 import StockInfo3 from './StockInfo3';
 import { fetchStock } from '../../stores/stockReducer';
 import Loading from '../crypto/loading';
+import Input from './Input';
 
 class StockHome extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { text: 'Please enter symbol' };
   }
 
   componentDidMount() {
@@ -39,6 +40,7 @@ class StockHome extends React.Component {
         <View style={styles.container}>
           {Platform.OS === 'ios' && <View style={styles.statusBar} />}
           <View style={styles.stocksBlock}>
+            <Input />
             <Chart />
           </View>
           <View style={styles.detailedBlock}>

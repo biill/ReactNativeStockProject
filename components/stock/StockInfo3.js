@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { fetchStock } from '../../stores/stockReducer';
