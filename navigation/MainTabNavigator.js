@@ -6,11 +6,12 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import Stock from '../components/stock/Stock';
 import HomePage from '../components/homepage/HomePage';
-import StockHome from '../components/homepage/StockHome';
+import StockHome from '../components/stock/StockHome';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import Crypto from '../components/crypto/Cypto';
-import Test from '../components/stock/Test';
+import StockInfo from '../components/stock/StockInfo';
+import Test from '../components/homepage/StockTreeMap';
+import Chart from '../components/stock/Chart';
 
 const HomeStack = createStackNavigator({
   Home: HomePage
@@ -39,32 +40,32 @@ LinksStack.navigationOptions = {
   tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-podium" />
 };
 
-// const CryptoStack = createStackNavigator({
-//   Settings: Crypto
-// });
-
-// CryptoStack.navigationOptions = {
-//   tabBarLabel: 'Crypto',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-//   )
-// };
-
-const TestStack = createStackNavigator({
-  Settings: Test
+const CryptoStack = createStackNavigator({
+  Settings: StockInfo
 });
 
-TestStack.navigationOptions = {
-  tabBarLabel: 'Test',
+CryptoStack.navigationOptions = {
+  tabBarLabel: 'Crypto',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   )
 };
 
+// const TestStack = createStackNavigator({
+//   Settings: Test
+// });
+
+// TestStack.navigationOptions = {
+//   tabBarLabel: 'Test',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+//   )
+// };
+
 export default createBottomTabNavigator({
   HomeStack,
   StocksStack,
   LinksStack,
-  // CryptoStack
-  TestStack
+  CryptoStack
+  // TestStack
 });

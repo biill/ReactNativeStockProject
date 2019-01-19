@@ -6,12 +6,13 @@ import {
   Text,
   TouchableHighlight,
   StyleSheet,
-  View,
-  RefreshControl
+  View
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
+import Chart from './Chart';
+import StockInfo from './StockInfo';
 
 export default class StockHome extends React.Component {
   constructor(props) {
@@ -31,36 +32,29 @@ export default class StockHome extends React.Component {
       <View style={styles.container}>
         {Platform.OS === 'ios' && <View style={styles.statusBar} />}
         <View style={styles.stocksBlock}>
-          {/* <ListView
-            key={this.state.key}
-            dataSource={this.state.dataSource}
-            renderRow={stock => (
-              //   <StockCell stock={stock} watchlistResult={this.state.watchlistResult} />
-              <Text>Individual Stock {stock} </Text>
-            )}
-          /> */}
+          <Chart />
         </View>
         <View style={styles.detailedBlock}>
           <IndicatorViewPager style={{ flex: 1 }} indicator={this.renderDotIndicator()}>
             <View>
-              <Text>Render Detail</Text>
+              <StockInfo />
             </View>
             <View>
-              <Text>Stock</Text>
+              <StockInfo />
             </View>
             <View>
-              <Text>Reserved</Text>
+              <StockInfo />
             </View>
           </IndicatorViewPager>
         </View>
         <View style={styles.footerBlock}>
           <TouchableHighlight
-            style={styles.yahoo}
+            style={styles.finance}
             onPress={() => console.log('will add press function')}
           >
             {/* underlayColor="#202020" */}
 
-            <Text style={styles.yahooText}>Stock</Text>
+            <Text style={styles.financeText}>Stock</Text>
           </TouchableHighlight>
 
           <View style={styles.footerMiddle}>
@@ -113,10 +107,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
     color: 'white'
   },
-  yahoo: {
+  finance: {
     flex: 1
   },
-  yahooText: {
+  financeText: {
     fontSize: 15,
     fontWeight: 'bold',
     color: 'white',
