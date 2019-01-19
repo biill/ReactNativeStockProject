@@ -9,9 +9,8 @@ import HomePage from '../components/homepage/HomePage';
 import StockHome from '../components/stock/StockHome';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import StockInfo from '../components/stock/StockInfo';
 import Test from '../components/homepage/StockTreeMap';
-import Chart from '../components/stock/Chart';
+import StockInfo1 from '../components/stock/StockInfo1';
 
 const HomeStack = createStackNavigator({
   Home: HomePage
@@ -41,7 +40,7 @@ LinksStack.navigationOptions = {
 };
 
 const CryptoStack = createStackNavigator({
-  Settings: StockInfo
+  Settings: Test
 });
 
 CryptoStack.navigationOptions = {

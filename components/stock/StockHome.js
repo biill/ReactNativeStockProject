@@ -12,8 +12,12 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 import Chart from './Chart';
-import StockInfo from './StockInfo';
+import StockInfo1 from './StockInfo1';
+import StockInfo2 from './StockInfo2';
+import StockInfo3 from './StockInfo3';
 import { fetchStock } from '../../stores/stockReducer';
+import Loading from '../crypto/loading';
+
 class StockHome extends React.Component {
   constructor(props) {
     super(props);
@@ -29,49 +33,53 @@ class StockHome extends React.Component {
   }
 
   render() {
-    console.log(this.state.dataSource);
-    return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <View style={styles.statusBar} />}
-        <View style={styles.stocksBlock}>
-          <Chart />
-        </View>
-        <View style={styles.detailedBlock}>
-          <IndicatorViewPager style={{ flex: 1 }} indicator={this.renderDotIndicator()}>
-            <View>
-              <StockInfo />
-            </View>
-            <View>
-              <StockInfo />
-            </View>
-            <View>
-              <StockInfo />
-            </View>
-          </IndicatorViewPager>
-        </View>
-        <View style={styles.footerBlock}>
-          <TouchableHighlight
-            style={styles.finance}
-            onPress={() => console.log('will add press function')}
-          >
-            {/* underlayColor="#202020" */}
-
-            <Text style={styles.financeText}>Stock</Text>
-          </TouchableHighlight>
-
-          <View style={styles.footerMiddle}>
-            <Text style={styles.marketTimeText}>Market closed</Text>
+    if (this.props.selectedStock.data.length > 0) {
+      const { info } = this.props.selectedStock;
+      return (
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <View style={styles.statusBar} />}
+          <View style={styles.stocksBlock}>
+            <Chart />
           </View>
-          <TouchableHighlight
-            style={styles.settings}
-            onPress={() => console.log('Need also something')}
-            underlayColor="#202020"
-          >
-            <Icon name="menu" color="white" size={22} />
-          </TouchableHighlight>
+          <View style={styles.detailedBlock}>
+            <IndicatorViewPager style={{ flex: 1 }} indicator={this.renderDotIndicator()}>
+              <View>
+                <StockInfo1 />
+              </View>
+              <View>
+                <StockInfo2 />
+              </View>
+              <View>
+                <StockInfo3 />
+              </View>
+            </IndicatorViewPager>
+          </View>
+          <View style={styles.footerBlock}>
+            <TouchableHighlight
+              style={styles.finance}
+              onPress={() => console.log('will add press function')}
+            >
+              {/* underlayColor="#202020" */}
+
+              <Text style={styles.financeText}>{info['symbol']}</Text>
+            </TouchableHighlight>
+
+            <View style={styles.footerMiddle}>
+              <Text style={styles.marketTimeText}>Market closed</Text>
+            </View>
+            <TouchableHighlight
+              style={styles.settings}
+              onPress={() => console.log('Need also something')}
+              underlayColor="#202020"
+            >
+              <Icon name="menu" color="white" size={22} />
+            </TouchableHighlight>
+          </View>
         </View>
-      </View>
-    );
+      );
+    } else {
+      return <Loading />;
+    }
   }
 }
 

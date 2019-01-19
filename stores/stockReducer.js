@@ -36,20 +36,20 @@ export const gotData = () => ({
   type: GOT_DATA
 });
 
-export const gotSelectedStock = (symbol, data) => ({
+export const gotSelectedStock = (info, data) => ({
   type: SELECTED_STOCK,
-  symbol,
+  info,
   data
 });
 
 export const fetchStock = symbol => {
   return async dispatch => {
     dispatch(isFetching());
-    let res;
+    let res, info;
     if (symbol) {
       res = await axios.get(`https://api.iextrading.com/1.0/stock/${symbol}/chart/1y`);
-      // res = await axios.get(`https://api.iextrading.com/1.0/stock/aapl/chart`);
-      const action = gotSelectedStock(symbol, res.data);
+      info = await axios.get(`https://api.iextrading.com/1.0/stock/${symbol}/stats`);
+      const action = gotSelectedStock(info.data, res.data);
       dispatch(action);
     } else {
       res = await axios.get('https://api.iextrading.com/1.0/stock/market/sector-performance');
@@ -79,7 +79,7 @@ export const fetchStock = symbol => {
 const initialState = {
   sectors: [],
   isFetching: false,
-  selectedStock: { symbol: '', data: [] }
+  selectedStock: { info: {}, data: [] }
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -90,7 +90,7 @@ const reducer = (state = initialState, action) => {
     case IS_FETCHING:
       return { ...state, isFetching: true };
     case SELECTED_STOCK:
-      return { ...state, selectedStock: { symbol: action.symbol, data: action.data } };
+      return { ...state, selectedStock: { info: action.info, data: action.data } };
     // case REMOVE_CAMPUS:
     //   const newState = state.filter(campus => campus.id != action.id);
     //   return newState;
