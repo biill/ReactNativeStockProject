@@ -8,19 +8,21 @@ import {
   StyleSheet,
   View
 } from 'react-native';
-
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 import Chart from './Chart';
 import StockInfo from './StockInfo';
-
-export default class StockHome extends React.Component {
+import { fetchStock } from '../../stores/stockReducer';
+class StockHome extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { dataSource: [1, 2, 3, 4, 5, 5, 6] };
+    this.state = {};
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.fetchStock('aapl');
+  }
 
   renderDotIndicator() {
     return <PagerDotIndicator pageCount={3} />;
@@ -133,3 +135,16 @@ const styles = StyleSheet.create({
     height: 20
   }
 });
+const mapStateToProps = state => ({
+  selectedStock: state.stockReducer.selectedStock,
+  isFetching: state.stockReducer.isFetching
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchStock: name => dispatch(fetchStock(name))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StockHome);
