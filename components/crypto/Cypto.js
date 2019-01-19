@@ -1,180 +1,214 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { InteractionManager, View, Dimensions, ScrollView, StyleSheet } from 'react-native';
-import { VictoryBar, VictoryLine, VictoryAxis, VictoryArea } from 'victory-chart-native';
-import Svg from 'react-native-svg';
-import fetchStock from '../../stores/stockReducer';
-import Loading from './loading';
-import T from './T';
-import data from './data';
-import * as util from './util';
-
-const defaultHeight = 200;
-const defaultWidth = Dimensions.get('window').width;
-const volumes = data.ticks.map(d => d.volume);
-const highestVolume = Math.max(...volumes);
-const lowestVolume = Math.min(...volumes);
-
-class StockChartWithVolume extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isReady: false
-    };
-  }
-  componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({ isReady: true });
-    });
-    this.props.fetchStockBySector();
-  }
-  render() {
-    const { ticks, tradingHours, lowestPrice, highestPrice, previousClose } = data;
-    if (!this.state.isReady) {
-      return <Loading />;
-    }
-
-    return (
-      <ScrollView style={styles.container}>
-        <View style={{ paddingBottom: 50 }}>
-          <T heading>Combine Stock Chart with Volume Chart</T>
-
-          <T>put two charts together</T>
-          <Svg height={defaultHeight} width={defaultWidth}>
-            <VictoryAxis
-              dependentAxis
-              height={defaultHeight}
-              padding={{ left: 50, top: 0, bottom: 0, right: 50 }}
-              standalone={false}
-              domain={[lowestPrice, highestPrice]}
-              style={{
-                grid: {
-                  stroke: '#ddd',
-                  strokeWidth: 1
-                },
-                axis: { stroke: 'transparent' },
-                ticks: { stroke: 'transparent' }
-              }}
-            />
-            <VictoryAxis
-              dependentAxis
-              height={defaultHeight}
-              padding={{ left: 50, top: 0, bottom: 0, right: 50 }}
-              orientation="right"
-              standalone={false}
-              domain={[lowestPrice, highestPrice]}
-              tickFormat={t => util.tickFormatPercent(t, previousClose)}
-              style={{
-                axis: { stroke: 'transparent' },
-                ticks: { stroke: 'transparent' }
-              }}
-            />
-
-            <VictoryArea
-              standalone={false}
-              padding={{ left: 50, top: 0, bottom: 0, right: 50 }}
-              data={ticks}
-              domain={{
-                x: tradingHours.map(t => t * 1000),
-                y: [lowestPrice, highestPrice]
-              }}
-              x={d => new Date(d.time * 1000)}
-              y={'price'}
-              height={defaultHeight}
-              style={{
-                data: {
-                  stroke: 'rgba(0, 102, 221, 0.75)',
-                  fill: 'rgba(237, 247, 255, 0.75)'
-                }
-              }}
-            />
-            <VictoryLine
-              standalone={false}
-              height={defaultHeight}
-              padding={{ left: 50, top: 0, bottom: 0, right: 50 }}
-              domain={{
-                y: [lowestPrice, highestPrice]
-              }}
-              data={[
-                { x: tradingHours[0] * 1000, y: previousClose },
-                { x: tradingHours[1] * 1000, y: previousClose }
-              ]}
-              style={{
-                data: {
-                  stroke: '#61c3bb',
-                  strokeWidth: 1
-                }
-              }}
-            />
-          </Svg>
-
-          <Svg height={100} width={defaultWidth}>
-            <VictoryAxis
-              height={100}
-              padding={{ left: 50, top: 0, bottom: 20, right: 50 }}
-              standalone={false}
-              domain={tradingHours.map(t => t * 1000)}
-              scale="time"
-              style={{
-                axis: { strokeWidth: 1, stroke: '#ddd' },
-                ticks: { strokeWidth: 1, stroke: '#ddd' }
-              }}
-            />
-            <VictoryAxis
-              dependentAxis
-              padding={{ left: 50, top: 0, bottom: 20, right: 50 }}
-              height={100}
-              standalone={false}
-              domain={[lowestVolume, highestVolume]}
-              tickFormat={v => v / 100000000}
-              tickCount={2}
-              style={{
-                axis: { stroke: 'transparent' },
-                ticks: { stroke: 'transparent' }
-              }}
-            />
-            <VictoryBar
-              padding={{ left: 50, top: 0, bottom: 20, right: 50 }}
-              height={100}
-              domain={{
-                x: tradingHours.map(t => t * 1000)
-              }}
-              standalone={false}
-              data={ticks}
-              x={d => d.time * 1000}
-              y={'volume'}
-              style={{
-                data: {
-                  width: 1,
-                  fill: d => {
-                    return d.mark ? 'red' : 'green';
-                  }
-                }
-              }}
-            />
-          </Svg>
-        </View>
-      </ScrollView>
-    );
-  }
-}
+import React from 'react';
+import PropTypes from 'prop-types';
+import { StyleSheet, Text, View, SectionList } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    paddingLeft: 10,
+    paddingRight: 10,
+    backgroundColor: 'black'
+  },
+  nameBlock: {
+    flex: 1,
+    paddingTop: 4,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  nameText: {
+    fontWeight: 'bold',
+    fontSize: 12,
+    color: 'white'
+  },
+  details: {
+    flex: 5,
+    flexDirection: 'column',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: 'white'
+  },
+  detailsRow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  detailsRowColumn: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingLeft: 5,
+    paddingRight: 5
+  },
+  separator: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: 'white'
+  },
+  separatorThin: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: '#A6A6A6'
+  },
+  propertyText: {
+    fontSize: 12,
+    color: '#A6A6A6',
+    textAlign: 'left'
+  },
+  valueText: {
+    fontSize: 15,
+    color: 'white',
+    textAlign: 'right'
   }
 });
-const mapStateToProps = state => ({
-  stock: state.stockReducer.selectedStock,
-  isFetching: state.stockReducer.isFetching
-});
 
-const mapDispatchToProps = dispatch => ({
-  fetchStock: name => dispatch(fetchStock(name))
-});
+const data = [1, 2, 3, 4, 5, 6];
+export default class DetailsPage extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(StockChartWithVolume);
+    this.state = {
+      timeSpan: '1D'
+    };
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.nameBlock}>
+          <Text style={styles.nameText}>
+            {(this.props.watchlistResult &&
+              this.props.watchlistResult[this.props.stock.symbol] &&
+              this.props.watchlistResult[this.props.stock.symbol].Name) ||
+              '--'}
+          </Text>
+        </View>
+        <View style={styles.details}>
+          <View style={styles.detailsRow}>
+            <View style={styles.detailsRowColumn}>
+              <Text style={styles.propertyText}>OPEN</Text>
+              <Text style={styles.valueText}>
+                {(this.props.watchlistResult &&
+                  this.props.watchlistResult[this.props.stock.symbol] &&
+                  this.props.watchlistResult[this.props.stock.symbol].Open) ||
+                  '--'}
+              </Text>
+            </View>
+            <View style={styles.detailsRowColumn}>
+              <Text style={styles.propertyText}>MKT CAP</Text>
+              <Text style={styles.valueText}>
+                {(this.props.watchlistResult &&
+                  this.props.watchlistResult[this.props.stock.symbol] &&
+                  this.props.watchlistResult[this.props.stock.symbol].MarketCapitalization) ||
+                  '--'}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.separatorThin} />
+
+          <View style={styles.detailsRow}>
+            <View style={styles.detailsRowColumn}>
+              <Text style={styles.propertyText}>HIGH</Text>
+              <Text style={styles.valueText}>
+                {(this.props.watchlistResult &&
+                  this.props.watchlistResult[this.props.stock.symbol] &&
+                  this.props.watchlistResult[this.props.stock.symbol].DaysHigh) ||
+                  '--'}
+              </Text>
+            </View>
+            <View style={styles.detailsRowColumn}>
+              <Text style={styles.propertyText}>52W HIGH</Text>
+              <Text style={styles.valueText}>
+                {(this.props.watchlistResult &&
+                  this.props.watchlistResult[this.props.stock.symbol] &&
+                  this.props.watchlistResult[this.props.stock.symbol].YearHigh) ||
+                  '--'}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.separatorThin} />
+
+          <View style={styles.detailsRow}>
+            <View style={styles.detailsRowColumn}>
+              <Text style={styles.propertyText}>LOW</Text>
+              <Text style={styles.valueText}>
+                {(this.props.watchlistResult &&
+                  this.props.watchlistResult[this.props.stock.symbol] &&
+                  this.props.watchlistResult[this.props.stock.symbol].DaysLow) ||
+                  '--'}
+              </Text>
+            </View>
+            <View style={styles.detailsRowColumn}>
+              <Text style={styles.propertyText}>52W LOW</Text>
+              <Text style={styles.valueText}>
+                {(this.props.watchlistResult &&
+                  this.props.watchlistResult[this.props.stock.symbol] &&
+                  this.props.watchlistResult[this.props.stock.symbol].YearLow) ||
+                  '--'}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.separatorThin} />
+
+          <View style={styles.detailsRow}>
+            <View style={styles.detailsRowColumn}>
+              <Text style={styles.propertyText}>VOL</Text>
+              <Text style={styles.valueText}>
+                {(this.props.watchlistResult &&
+                  this.props.watchlistResult[this.props.stock.symbol] &&
+                  this.props.watchlistResult[this.props.stock.symbol].Volume) ||
+                  '--'}
+              </Text>
+            </View>
+            <View style={styles.detailsRowColumn}>
+              <Text style={styles.propertyText}>AVG VOL</Text>
+              <Text style={styles.valueText}>
+                {(this.props.watchlistResult &&
+                  this.props.watchlistResult[this.props.stock.symbol] &&
+                  this.props.watchlistResult[this.props.stock.symbol].AverageDailyVolume) ||
+                  '--'}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.separatorThin} />
+
+          <View style={styles.detailsRow}>
+            <View style={styles.detailsRowColumn}>
+              <Text style={styles.propertyText}>P/E</Text>
+              <Text style={styles.valueText}>
+                {(this.props.watchlistResult &&
+                  this.props.watchlistResult[this.props.stock.symbol] &&
+                  this.props.watchlistResult[this.props.stock.symbol].PERatio) ||
+                  '--'}
+              </Text>
+            </View>
+            <View style={styles.detailsRowColumn}>
+              <Text style={styles.propertyText}>YIELD</Text>
+              <Text style={styles.valueText}>
+                {(this.props.watchlistResult &&
+                  this.props.watchlistResult[this.props.stock.symbol] &&
+                  this.props.watchlistResult[this.props.stock.symbol].DividendYield &&
+                  `${this.props.watchlistResult[this.props.stock.symbol].DividendYield} %`) ||
+                  '--'}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.detailsRowColumn}>
+            <Text style={styles.propertyText}>News</Text>
+          </View>
+        </View>
+      </View>
+    );
+  }
+}
+
+DetailsPage.propTypes = {
+  watchlistResult: PropTypes.shape({}),
+  stock: PropTypes.shape({
+    symbol: PropTypes.string
+  })
+};
+
+DetailsPage.defaultProps = {
+  watchlistResult: [],
+  stock: {}
+};

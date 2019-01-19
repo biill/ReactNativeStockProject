@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchStock } from '../../stores/stockReducer';
-
 class Stock extends Component {
   constructor(props) {
     super(props);
@@ -10,8 +9,8 @@ class Stock extends Component {
 
   componentDidMount() {
     this.props.fetchStockBySector();
-    setInterval(() => this.props.fetchStockBySector(), 5000);
-    this.setState = { stocks: this.props.sectors };
+    // setInterval(() => this.props.fetchStockBySector(), 5000);
+    // this.setState = { stocks: this.props.sectors };
   }
 
   render() {

@@ -9,6 +9,8 @@ import HomePage from '../components/homepage/HomePage';
 import StockHome from '../components/homepage/StockHome';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import Crypto from '../components/crypto/Cypto';
+import Test from '../components/stock/Test';
 
 const HomeStack = createStackNavigator({
   Home: HomePage
@@ -37,12 +39,23 @@ LinksStack.navigationOptions = {
   tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-podium" />
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen
+// const CryptoStack = createStackNavigator({
+//   Settings: Crypto
+// });
+
+// CryptoStack.navigationOptions = {
+//   tabBarLabel: 'Crypto',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+//   )
+// };
+
+const TestStack = createStackNavigator({
+  Settings: Test
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Crypto',
+TestStack.navigationOptions = {
+  tabBarLabel: 'Test',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   )
@@ -52,5 +65,6 @@ export default createBottomTabNavigator({
   HomeStack,
   StocksStack,
   LinksStack,
-  SettingsStack
+  // CryptoStack
+  TestStack
 });

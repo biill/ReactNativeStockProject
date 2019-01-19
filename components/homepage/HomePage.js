@@ -21,7 +21,6 @@ export default class BasicCarouselExample extends React.Component {
             infinite
             afterChange={this.onVerticalSelectedIndexChange}
             vertical
-            autoplay
           >
             <View style={[styles.containerVertical, { backgroundColor: 'red' }]}>
               <Text style={[styles.containerVertical, { backgroundColor: 'red' }]} />
