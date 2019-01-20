@@ -20,11 +20,6 @@ import Loading from '../crypto/loading';
 import Input from './Input';
 
 class StockHome extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { text: 'Please enter symbol' };
-  }
-
   componentDidMount() {
     this.props.fetchStock('aapl');
   }

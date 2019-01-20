@@ -58,6 +58,7 @@ class InputForm extends Component {
               borderRadius: 5
             }}
             onPress={() => this.handelSubmit()}
+            disabled={this.state.text === ''}
             title="Search"
           />
         </View>

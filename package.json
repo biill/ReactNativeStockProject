@@ -13,7 +13,7 @@
   "dependencies": {
     "@ant-design/react-native": "^3.0.6",
     "@expo/samples": "2.1.1",
-    "antd": "^3.12.3",
+    "antd-mobile": "^2.2.8",
     "axios": "^0.18.0",
     "expo": "^32.0.0",
     "moment": "^2.23.0",
