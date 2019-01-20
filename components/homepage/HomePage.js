@@ -12,19 +12,19 @@ import {
 import { connect } from 'react-redux';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
-import { Header, Card, Icon, Overlay } from 'react-native-elements';
-import { fetchStock } from '../../stores/stockReducer';
+import { Header, Card, Icon, Overlay, Divider } from 'react-native-elements';
+import { fetchStock, initialLoading } from '../../stores/stockReducer';
 import Loading from '../crypto/loading';
 import StockChart from './StockChart';
 import StockTreeMap from './StockTreeMap';
-const APIKEY = 'XUKO1LP3IY0YZRJ6';
+import data from './test';
 class StockHome extends React.Component {
   componentDidMount() {
-    // this.props.fetchStock('aapl');
+    this.props.initialLoading();
   }
 
   render() {
-    if (true) {
+    if (this.props.indexes.sp500.length > 0) {
       return (
         <ScrollView style={{ backgroundColor: 'black' }}>
           <View style={styles.container}>
@@ -35,16 +35,22 @@ class StockHome extends React.Component {
               backgroundColor="black"
             />
 
-            <Card title="Stock" titleStyle={{ textAlign: 'left' }}>
+            <Card
+              title="Market Overall"
+              titleStyle={{ textAlign: 'center', color: 'gold' }}
+              containerStyle={{ backgroundColor: 'black' }}
+            >
               <View style={styles.user}>
-                <StockChart />
+                <StockChart name="DOW JONES INDEX" data={this.props.indexes.dow} />
+                <Divider style={{ backgroundColor: 'gray', height: 0.5 }} />
+                <StockChart name="NASDAQ INDEX" data={this.props.indexes.nasdqa} />
+                <Divider style={{ backgroundColor: 'gray', height: 0.5 }} />
+                <StockChart name="S&P 500 INDEX" data={this.props.indexes.sp500} />
               </View>
             </Card>
             <View style={styles.separator} />
             <Card title="Bitcoin" titleStyle={{ textAlign: 'left' }}>
-              <View style={styles.user}>
-                <StockChart />
-              </View>
+              <View style={styles.user}>{/* <StockChart /> */}</View>
             </Card>
           </View>
         </ScrollView>
@@ -113,15 +119,27 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'white',
     textAlign: 'right'
+  },
+  title: {
+    paddingTop: 5,
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 const mapStateToProps = state => ({
   selectedStock: state.stockReducer.selectedStock,
-  isFetching: state.stockReducer.isFetching
+  isFetching: state.stockReducer.isFetching,
+  indexes: state.stockReducer.stocks,
+  cryptos: state.stockReducer.crypto
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchStock: name => dispatch(fetchStock(name))
+  fetchStock: name => dispatch(fetchStock(name)),
+  initialLoading: () => dispatch(initialLoading())
 });
 
 export default connect(
