@@ -46,17 +46,21 @@ export const fetchStock = symbol => {
   return async dispatch => {
     dispatch(isFetching());
     let res, info;
-    if (symbol) {
-      res = await axios.get(`https://api.iextrading.com/1.0/stock/${symbol}/chart/1y`);
-      info = await axios.get(`https://api.iextrading.com/1.0/stock/${symbol}/stats`);
-      const action = gotSelectedStock(info.data, res.data);
-      dispatch(action);
-    } else {
-      res = await axios.get('https://api.iextrading.com/1.0/stock/market/sector-performance');
-      const action = gotStockBySectorFromAPI(res.data);
-      dispatch(action);
+    try {
+      if (symbol) {
+        res = await axios.get(`https://api.iextrading.com/1.0/stock/${symbol}/chart/1y`);
+        info = await axios.get(`https://api.iextrading.com/1.0/stock/${symbol}/stats`);
+        const action = gotSelectedStock(info.data, res.data);
+        dispatch(action);
+      } else {
+        res = await axios.get('https://api.iextrading.com/1.0/stock/market/sector-performance');
+        const action = gotStockBySectorFromAPI(res.data);
+        dispatch(action);
+      }
+      dispatch(gotData());
+    } catch (error) {
+      console.warn('NO Symbol Find, Please Enter a Valid Symbol');
     }
-    dispatch(gotData());
   };
 };
 

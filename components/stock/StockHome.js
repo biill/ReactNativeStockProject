@@ -67,7 +67,7 @@ class StockHome extends React.Component {
             </TouchableHighlight>
 
             <View style={styles.footerMiddle}>
-              <Text style={styles.marketTimeText}>Market closed</Text>
+              <Text style={styles.marketTimeText}>BETA: {parseFloat(info['beta']).toFixed(2)}</Text>
             </View>
             <TouchableHighlight
               style={styles.settings}
@@ -92,10 +92,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'black'
   },
   statusBar: {
-    height: 20
+    height: 10
   },
   stocksBlock: {
     flexDirection: 'column',
+    marginBottom: 10,
     flex: 9
   },
   detailedBlock: {

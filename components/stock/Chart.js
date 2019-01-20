@@ -100,7 +100,7 @@ class Chart extends Component {
         {
           left: '10%',
           right: '8%',
-          bottom: '20%',
+          bottom: '10%',
           height: '15%'
         }
       ],
@@ -219,15 +219,16 @@ const styles = StyleSheet.create({
   },
 
   titleView: {
-    height: Platform.OS == 'ios' ? 64 : 44,
-    paddingTop: Platform.OS == 'ios' ? 14 : 0,
+    height: Platform.OS == 'ios' ? 20 : 44,
+    paddingTop: Platform.OS == 'ios' ? 0 : 0,
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center'
   },
   title: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 15,
+    fontWeight: 'bold',
     textAlign: 'center'
   }
 });
