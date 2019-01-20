@@ -4,20 +4,19 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import Stock from '../components/stock/Stock';
 import HomePage from '../components/homepage/HomePage';
 import StockHome from '../components/stock/StockHome';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import Test from '../components/homepage/StockTreeMap';
-import StockInfo1 from '../components/stock/StockInfo1';
+import Crypto from '../components/crypto/StockTreeMap';
+import SectorHome from '../components/sector/SectorHome';
 
 const HomeStack = createStackNavigator({
   Home: HomePage
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Overview',
   tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-home" />
 };
 
@@ -26,21 +25,21 @@ const StocksStack = createStackNavigator({
 });
 
 StocksStack.navigationOptions = {
-  tabBarLabel: 'StockHome',
+  tabBarLabel: 'Stock',
   tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-stats" />
 };
 
 const LinksStack = createStackNavigator({
-  Links: Stock
+  Links: SectorHome
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Stock',
+  tabBarLabel: 'Sector',
   tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-podium" />
 };
 
 const CryptoStack = createStackNavigator({
-  Settings: Test
+  Settings: Crypto
 });
 
 CryptoStack.navigationOptions = {
@@ -63,8 +62,8 @@ CryptoStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  StocksStack,
   LinksStack,
+  StocksStack,
   CryptoStack
   // TestStack
 });

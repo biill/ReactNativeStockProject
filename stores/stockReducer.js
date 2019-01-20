@@ -6,9 +6,6 @@ const IS_FETCHING = 'IS_FETCHING';
 const GOT_DATA = 'GOT_DATA';
 const SELECTED_STOCK = 'SELECTED_STOCK';
 const GOT_HOMEPAGE_DATA = 'GOT_HOMEPAGE_DATA';
-// const ADD_CAMPUS = 'ADD_CAMPUS';
-// const REMOVE_CAMPUS = 'REMOVE_CAMPUS';
-// const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
 
 export const gotStockBySectorFromAPI = sectors => ({
   type: GOT_STOCK_SECTOR_FROM_API,
@@ -93,22 +90,6 @@ export const initialLoading = () => {
   };
 };
 
-// export const postCampus = campus => {
-//   return async dispatch => {
-//     const { data } = await axios.post('/api/campuses', campus);
-//     const action = addCampus(data);
-//     dispatch(action);
-//   };
-// };
-
-// export const deleteCampus = id => {
-//   return async dispatch => {
-//     await axios.delete(`/api/campuses/${id}`);
-//     const action = removeCampus(id);
-//     dispatch(action);
-//   };
-// };
-
 const initialState = {
   sectors: [],
   isFetching: false,
@@ -128,9 +109,6 @@ const reducer = (state = initialState, action) => {
       return { ...state, selectedStock: { info: action.info, data: action.data } };
     case GOT_HOMEPAGE_DATA:
       return { ...state, stocks: action.stocks, crypto: action.crypto };
-    // case UPDATE_CAMPUS:
-    //   const oldState = state.filter(campus => campus.id != action.campus.id);
-    //   return [...oldState, action.campus];
     default:
       return state;
   }

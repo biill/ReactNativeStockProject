@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, ScrollView } from 'react-native';
 import Echarts from 'native-echarts';
 import Dimensions from 'Dimensions';
+import { Header, Card, Divider } from 'react-native-elements';
 import data from './data.json';
 const { width } = Dimensions.get('window');
 
@@ -167,13 +168,21 @@ export default class Chart extends Component {
     };
 
     return (
-      <View style={styles.container}>
-        <View style={styles.titleView}>
-          <Text style={styles.title}>Stock Name</Text>
-        </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <Header
+            leftComponent={{ icon: 'menu', color: '#fff' }}
+            centerComponent={{ text: 'Financial InfoX', style: { color: '#fff' } }}
+            rightComponent={{ icon: 'home', color: '#fff' }}
+            backgroundColor="black"
+          />
+          <View style={styles.titleView}>
+            <Text style={styles.title}>Stock Name</Text>
+          </View>
 
-        <Echarts option={option} height={300} width={width} />
-      </View>
+          <Echarts option={option} height={1200} width={width} />
+        </View>
+      </ScrollView>
     );
   }
 }

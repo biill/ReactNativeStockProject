@@ -3,46 +3,43 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Header, Card, Divider } from 'react-native-elements';
-import { fetchStock, initialLoading } from '../../stores/stockReducer';
+import { fetchStock } from '../../stores/stockReducer';
 import Loading from '../crypto/loading';
-import StockChart from './StockChart';
+import SectorChart from './SectorChart';
+
 class StockHome extends React.Component {
   componentDidMount() {
-    this.props.initialLoading();
+    this.props.fetchStockBySector();
   }
 
   render() {
-    if (this.props.indexes.sp500.length > 0) {
-      return (
-        <ScrollView style={{ backgroundColor: 'black' }}>
-          <View style={styles.container}>
-            <Header
-              leftComponent={{ icon: 'menu', color: '#fff' }}
-              centerComponent={{ text: 'Financial InfoX', style: { color: '#fff' } }}
-              rightComponent={{ icon: 'home', color: '#fff' }}
-              backgroundColor="black"
-            />
+    // if (this.props.sectors > 0) {
+    return (
+      <ScrollView style={{ backgroundColor: 'black' }}>
+        <View style={styles.container}>
+          <Header
+            leftComponent={{ icon: 'menu', color: '#fff' }}
+            centerComponent={{ text: 'Financial InfoX', style: { color: '#fff' } }}
+            rightComponent={{ icon: 'home', color: '#fff' }}
+            backgroundColor="black"
+          />
 
-            <Card
-              title="Market Overall"
-              titleStyle={{ textAlign: 'center', color: 'gold' }}
-              containerStyle={{ backgroundColor: 'black' }}
-            >
-              <View style={styles.user}>
-                <StockChart name="DOW JONES INDEX" data={this.props.indexes.dow} />
-                <Divider style={{ backgroundColor: 'gray', height: 0.5 }} />
-                <StockChart name="NASDAQ INDEX" data={this.props.indexes.nasdqa} />
-                <Divider style={{ backgroundColor: 'gray', height: 0.5 }} />
-                <StockChart name="S&P 500 INDEX" data={this.props.indexes.sp500} />
-              </View>
-            </Card>
-            <View style={styles.separator} />
-          </View>
-        </ScrollView>
-      );
-    } else {
-      return <Loading />;
-    }
+          <Card
+            title="Market Change by Sector"
+            titleStyle={{ textAlign: 'center', color: 'gold' }}
+            containerStyle={{ backgroundColor: 'black' }}
+          >
+            <View style={styles.user}>
+              <SectorChart />
+            </View>
+          </Card>
+          <View style={styles.separator} />
+        </View>
+      </ScrollView>
+    );
+    // } else {
+    //   return <Loading />;
+    // }
   }
 }
 
@@ -116,15 +113,14 @@ const styles = StyleSheet.create({
   }
 });
 const mapStateToProps = state => ({
-  selectedStock: state.stockReducer.selectedStock,
   isFetching: state.stockReducer.isFetching,
   indexes: state.stockReducer.stocks,
-  cryptos: state.stockReducer.crypto
+  cryptos: state.stockReducer.crypto,
+  sectors: state.stockReducer.sectors
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchStock: name => dispatch(fetchStock(name)),
-  initialLoading: () => dispatch(initialLoading())
+  fetchStockBySector: () => dispatch(fetchStock())
 });
 
 export default connect(
