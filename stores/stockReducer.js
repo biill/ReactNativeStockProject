@@ -61,16 +61,16 @@ export const initialLoading = () => {
     let crypto = {};
     try {
       const dowRes = await axios.get(
-        //'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=dji&apikey=XUKO1LP3IY0YZRJ6'
-        'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo'
+        'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=dji&apikey=XUKO1LP3IY0YZRJ6'
+        // 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo'
       );
       const nasdqaRes = await axios.get(
-        //'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=NDX&apikey=XUKO1LP3IY0YZRJ6'
-        'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo'
+        'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=NDX&apikey=XUKO1LP3IY0YZRJ6'
+        // 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo'
       );
       const sp500Res = await axios.get(
-        //'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=SPX&apikey=XUKO1LP3IY0YZRJ6'
-        'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo'
+        'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=SPX&apikey=XUKO1LP3IY0YZRJ6'
+        // 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo'
       );
       const btcRes = await axios.get('https://api.iextrading.com/1.0/stock/market/crypto');
 

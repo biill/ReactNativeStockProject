@@ -40,7 +40,7 @@ class Chart extends Component {
           itemStyle: {
             normal: {
               borderWidth: 0.5,
-              borderColor: 'black',
+              borderColor: 'white',
               gapWidth: 0.5
             }
           },
@@ -52,7 +52,7 @@ class Chart extends Component {
               itemStyle: {
                 normal: {
                   borderWidth: 1,
-                  borderColor: 'black',
+                  borderColor: 'white',
                   gapWidth: 1
                 }
               },

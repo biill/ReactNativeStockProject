@@ -1,17 +1,18 @@
 {
   "expo": {
-    "name": "StackthonProject",
-    "slug": "StackthonProject",
+    "name": "Financial InfoX",
+    "slug": "Financial InfoX",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/robot-dev-png",
+    "ios.icon": "./assets/images/iconCapital.png",
+    "icon": "./assets/images/iconCapital.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/iron-man.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,6 +20,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Financial Information  APP with React Native"
   }
 }
