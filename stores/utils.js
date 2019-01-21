@@ -8,12 +8,17 @@ export const convertStockData = data => {
 };
 
 export const convertCryptoData = data => {
-  let result = [];
-  for (let i in data['Time Series (Digital Currency Daily)']) {
-    let crypto = {};
-    crypto['data'] = i;
-    crypto['price'] = data['Time Series (Digital Currency Daily)'][i]['2b. high (USD)'];
-    result.push(crypto);
-  }
-  return result.reverse();
+  let crypto = { name: 'crypto', value: 0 };
+  data = data
+    .map(e => {
+      return {
+        name: e['companyName'].slice(0, -3),
+        value: parseFloat((e['bidPrice'] * e['latestVolume']) / 1000000).toFixed(2)
+      };
+    })
+    .filter(e => e.value > 0);
+  crypto['children'] = data;
+  crypto.value = parseFloat(data.reduce((sum, cur) => sum + Number(cur.value), 0)).toFixed(2);
+
+  return [crypto];
 };

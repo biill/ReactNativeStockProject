@@ -1,13 +1,13 @@
 [
   {
     "name": "Health and Human Services",
-    "lastUpdated": 1547845200427,
+    "lastUpdated": "1547845200427",
     "value": 3.5,
     "children": [
       {
         "name": "Energy",
         "value": 0.3,
-        "lastUpdated": 1547845200427
+        "lastUpdated": "1547845200427"
       },
       {
         "name": "Industrials",

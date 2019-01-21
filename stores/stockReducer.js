@@ -73,13 +73,14 @@ export const initialLoading = () => {
         'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo'
       );
       const btcRes = await axios.get(
-        'https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=BTC&market=CNY&apikey=demo'
+        // 'https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=BTC&market=CNY&apikey=demo'
+        'https://api.iextrading.com/1.0/stock/market/crypto'
       );
 
       stocks['dow'] = convertStockData(dowRes.data);
       stocks['nasdqa'] = convertStockData(nasdqaRes.data);
       stocks['sp500'] = convertStockData(sp500Res.data);
-      crypto['btc'] = convertCryptoData(btcRes.data);
+      crypto = convertCryptoData(btcRes.data);
 
       const action = gotHomePage(stocks, crypto);
       dispatch(action);
@@ -95,7 +96,7 @@ const initialState = {
   isFetching: false,
   selectedStock: { info: {}, data: [] },
   stocks: { dow: {}, nasdqa: {}, sp500: {} },
-  crypto: { btc: {} }
+  crypto: []
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
