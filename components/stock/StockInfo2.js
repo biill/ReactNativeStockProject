@@ -26,7 +26,9 @@ class StockInfo2 extends React.Component {
             </View>
             <View style={styles.detailsRowColumn}>
               <Text style={styles.propertyText}>MKT CAP</Text>
-              <Text style={styles.valueText}>{info['marketcap'] || '--'}</Text>
+              <Text style={styles.valueText}>
+                {parseFloat(info['marketcap'] / 1000000000).toFixed(2) || '--'} B
+              </Text>
             </View>
           </View>
           <View style={styles.separatorThin} />

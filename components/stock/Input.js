@@ -37,9 +37,7 @@ class InputForm extends Component {
               this.setState({ text: textEntry });
             }}
             style={{ backgroundColor: 'transparent' }}
-            onSubmitEditing={() => {
-              this.onSubmit(this.state.text);
-            }}
+            onSubmitEditing={() => this.handelSubmit()}
             color="white"
             placeholder="Please enter a symbol"
             placeholderTextColor="white"

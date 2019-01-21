@@ -1,13 +1,12 @@
 {
   "expo": {
     "name": "Financial InfoX",
-    "slug": "Financial InfoX",
+    "slug": "FinancialInfoX",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "ios.icon": "./assets/images/iconCapital.png",
     "icon": "./assets/images/iconCapital.png",
     "splash": {
       "image": "./assets/images/iron-man.png",
