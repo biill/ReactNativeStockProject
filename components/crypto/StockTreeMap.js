@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Platform, ScrollView } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 import Echarts from 'native-echarts';
 import Dimensions from 'Dimensions';
-import { Header, Card, Divider } from 'react-native-elements';
-import data from './data.json';
+import { Header } from 'react-native-elements';
 const { width } = Dimensions.get('window');
 class Chart extends Component {
   render() {
-    console.log(this.props.crypto);
     const option = {
       title: {
         left: 'center',
         text: 'Crypto Currency Value Tree Map',
         subtext: 'Total Value Based on volume multiply current price',
-        color: 'white'
+        textStyle: {
+          color: 'white'
+        },
+        subtextStyle: {
+          color: 'white'
+        }
       },
       tooltip: {
         formatter: '{b}: $ {c} Millions'
@@ -53,7 +56,8 @@ class Chart extends Component {
                   gapWidth: 1
                 }
               },
-              color: ['#E57373', '#BA68C8']
+              color: ['#269f3c', '#aaa']
+              //colorMappingBy: 'value'
             }
           ],
           colorSaturation: [0.3, 1],
@@ -70,7 +74,7 @@ class Chart extends Component {
           rightComponent={{ icon: 'home', color: '#fff' }}
           backgroundColor="black"
         />
-        <Echarts option={option} height={580} width={width} />
+        <Echarts option={option} height={585} width={width} />
       </View>
     );
   }
@@ -88,7 +92,10 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    backgroundColor: 'black'
   },
 
   titleView: {

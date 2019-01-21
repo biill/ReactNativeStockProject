@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import Echarts from 'native-echarts';
 import Dimensions from 'Dimensions';
-import Loading from '../crypto/loading';
 import { fetchStock } from '../../stores/stockReducer';
 
 class SectorChart extends Component {
@@ -70,9 +69,6 @@ class SectorChart extends Component {
         <Echarts option={option} height={450} width={330} handleMessage={this.handleMessage} />
       </View>
     );
-    // } else {
-    //   return <Loading />;
-    // }
   }
 }
 

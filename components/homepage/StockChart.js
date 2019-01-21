@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import Echarts from 'native-echarts';
 import Dimensions from 'Dimensions';
 import { fetchStock, initialLoading } from '../../stores/stockReducer';
 import Loading from '../crypto/loading';
-const { width } = Dimensions.get('window');
+// const { width } = Dimensions.get('window');
 
 class StockChart extends Component {
   render() {

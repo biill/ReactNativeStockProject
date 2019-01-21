@@ -1,10 +1,8 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Header, Card, Divider } from 'react-native-elements';
+import { Header, Card } from 'react-native-elements';
 import { fetchStock } from '../../stores/stockReducer';
-import Loading from '../crypto/loading';
 import SectorChart from './SectorChart';
 
 class StockHome extends React.Component {
@@ -13,7 +11,6 @@ class StockHome extends React.Component {
   }
 
   render() {
-    // if (this.props.sectors > 0) {
     return (
       <ScrollView style={{ backgroundColor: 'black' }}>
         <View style={styles.container}>
@@ -37,9 +34,6 @@ class StockHome extends React.Component {
         </View>
       </ScrollView>
     );
-    // } else {
-    //   return <Loading />;
-    // }
   }
 }
 
