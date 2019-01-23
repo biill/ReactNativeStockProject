@@ -13,6 +13,6 @@ A mobile app built in 3 days to demonstrate stock market information by using a 
   <img src=assets/images/stockScreen.jpg height="600">
   <img src=assets/images/Crypto.jpg height="600">
 
-#### Option A: Automatic Deployment via Continuous Integration
+#### Question?
 
 Now, if you have question, please let me know.
