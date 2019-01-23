@@ -5,7 +5,8 @@
 ## Screen Shots demonstration
 
 - Screen shot for Market overall
-  ![alt text](assets/images/marketOverall.jpg?v=4&s=200)
+  ![alt text](assets/images/marketOverall.jpg?)
+  <img src="https://github.com/favicon.ico" width="48">
 - Screen shot for Market break down by sector
   <!-- ![alt text](assets/images/marketOverall.jpg) -->
 - Screen shot for Stock Searching
