@@ -3,11 +3,8 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
 import HomePage from '../components/homepage/HomePage';
 import StockHome from '../components/stock/StockHome';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 import Crypto from '../components/crypto/StockTreeMap';
 import SectorHome from '../components/sector/SectorHome';
 
