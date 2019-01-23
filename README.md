@@ -5,9 +5,9 @@
 ## Screen Shots demonstration
 
 - Screen shot for Market overall
-  ![alt text](assets/images/marketOverall.jpgv=4&s=200)
+  ![alt text](assets/images/marketOverall.jpg?v=4&s=200)
 - Screen shot for Market break down by sector
-  ![alt text](assets/images/marketOverall.jpg)
+  <!-- ![alt text](assets/images/marketOverall.jpg) -->
 - Screen shot for Stock Searching
 - Screen shot for Cryptocurrency
 
