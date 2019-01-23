@@ -4,12 +4,10 @@
 
 ## Screen Shots demonstration
 
-- Screen shot for Market overall
   <img src=assets/images/marketOverall.jpg height="600">
-- Screen shot for Market break down by sector
-  <!-- ![alt text](assets/images/marketOverall.jpg) -->
-- Screen shot for Stock Searching
-- Screen shot for Cryptocurrency
+  <img src=assets/images/sector.jpg height="600">
+  <img src=assets/images/stockScreen.jpg height="600">
+  <img src=assets/images/Crypto.jpg height="600">
 
 #### Option A: Automatic Deployment via Continuous Integration
 
