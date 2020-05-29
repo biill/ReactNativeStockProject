@@ -6,6 +6,7 @@ import HomeScreen from "../screens/HomeScreen";
 import LinksScreen from "../screens/LinksScreen";
 import MarketOverview from "../screens/MarketOverview";
 import SectorScreen from "../screens/SectorScreen";
+import StockScreen from "../screens/StockScreen";
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = "Home";
@@ -30,7 +31,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Stock"
-        component={LinksScreen}
+        component={StockScreen}
         options={{
           title: "Stock",
           tabBarIcon: ({ focused }) => (
