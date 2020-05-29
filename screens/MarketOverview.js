@@ -16,19 +16,19 @@ export default function MarketOverview() {
   const initialLoading = async () => {
     try {
       const dowRes = await axios.get(
-        // `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=demo`
-        "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=dji&apikey=XUKO1LP3IY0YZRJ6"
+        `https://sandbox.iexapis.com/stable/stock/DIA/chart?token=Tsk_9b260400520a4d23abfe1ef6cb0d3feb`
       );
-      //   const nasdqaRes = await axios.get(
-      //     `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=ibm&apikey=${apikey}`
-      //   );
-      //   const sp500Res = await axios.get(
-      //     `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=ibm &apikey=${apikey}`
-      //   );
-      setDowData(convertStockData(dowRes));
-      console.log(dowData, "this is the dow");
-      //   setNasdqaData(convertStockData(nasdqaData));
-      //   setSp500Data(convertStockData(sp500Data));
+      const nasdqaRes = await axios.get(
+        `https://sandbox.iexapis.com/stable/stock/qqq/chart?token=Tsk_9b260400520a4d23abfe1ef6cb0d3feb`
+      );
+
+      const sp500Res = await axios.get(
+        `https://sandbox.iexapis.com/stable/stock/spy/chart?token=Tsk_9b260400520a4d23abfe1ef6cb0d3feb`
+      );
+
+      setDowData(dowRes.data);
+      setNasdqaData(nasdqaRes.data);
+      setSp500Data(sp500Res.data);
     } catch (error) {
       console.log(error);
     }
@@ -56,11 +56,17 @@ export default function MarketOverview() {
           containerStyle={{ backgroundColor: "black" }}
         >
           <View style={styles.user}>
-            <StockChart name="DOW JONES INDEX" data={dowData} />
+            {dowData.length > 0 && (
+              <StockChart name="DOW JONES INDEX" data={dowData} />
+            )}
             <Divider style={{ backgroundColor: "gray", height: 0.5 }} />
-            {/* <StockChart name="NASDAQ INDEX" data={this.props.indexes.nasdqa} />
-          <Divider style={{ backgroundColor: 'gray', height: 0.5 }} />
-          <StockChart name="S&P 500 INDEX" data={this.props.indexes.sp500} /> */}
+            {nasdqaData.length > 0 && (
+              <StockChart name="NASDAQ INDEX" data={nasdqaData} />
+            )}
+            <Divider style={{ backgroundColor: "gray", height: 0.5 }} />
+            {sp500Data.length > 0 && (
+              <StockChart name="S&P 500 INDEX" data={sp500Data} />
+            )}
           </View>
         </Card>
         <View style={styles.separator} />

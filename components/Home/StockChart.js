@@ -5,22 +5,17 @@ import { apikey } from "../../secret";
 
 const StockChart = ({ data, name }) => {
   let stockData = data.slice(-30);
+
   let dates = [];
   let values = [];
+
   if (data) {
-    stockData.map((data) => dates.push(data[0]));
-    dates.reverse();
+    stockData.map((data) => dates.push(data["date"]));
     stockData.map((item) =>
-      values.push([
-        +item[1]["1. open"],
-        +item[1]["4. close"],
-        +item[1]["3. low"],
-        +item[1]["2. high"],
-      ])
+      values.push([item["open"], item["close"], item["low"], item["high"]])
     );
   }
-
-  console.log(values);
+  console.log(values, "data passed ");
   const option = {
     backgroundColor: "black",
     title: {
