@@ -1,39 +1,15 @@
-import axios from "axios";
+import { Ionicons } from "@expo/vector-icons";
+import * as WebBrowser from "expo-web-browser";
 import * as React from "react";
-import { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
-import { Card, Divider, Header } from "react-native-elements";
-import { ScrollView } from "react-native-gesture-handler";
-import StockChart from "../components/Home/StockChart";
+
+import { StyleSheet, Text, View } from "react-native";
+import { RectButton, ScrollView } from "react-native-gesture-handler";
+import { Header, Card, Divider } from "react-native-elements";
+import SectorChart from "../components/Sector/SectorChart";
+
+import { useState, useEffect } from "react";
 
 export default function MarketOverview() {
-  const [dowData, setDowData] = useState([]);
-  const [nasdqaData, setNasdqaData] = useState([]);
-  const [sp500Data, setSp500Data] = useState([]);
-  const initialLoading = async () => {
-    try {
-      const dowRes = await axios.get(
-        `https://sandbox.iexapis.com/stable/stock/DIA/chart?token=Tsk_9b260400520a4d23abfe1ef6cb0d3feb`
-      );
-      const nasdqaRes = await axios.get(
-        `https://sandbox.iexapis.com/stable/stock/qqq/chart?token=Tsk_9b260400520a4d23abfe1ef6cb0d3feb`
-      );
-
-      const sp500Res = await axios.get(
-        `https://sandbox.iexapis.com/stable/stock/spy/chart?token=Tsk_9b260400520a4d23abfe1ef6cb0d3feb`
-      );
-
-      setDowData(dowRes.data);
-      setNasdqaData(nasdqaRes.data);
-      setSp500Data(sp500Res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    initialLoading();
-  }, []);
   return (
     <ScrollView style={{ backgroundColor: "black" }}>
       <View style={styles.container}>
@@ -48,22 +24,12 @@ export default function MarketOverview() {
         />
 
         <Card
-          title="Market Overall"
+          title="Market Change by Sector"
           titleStyle={{ textAlign: "center", color: "gold" }}
           containerStyle={{ backgroundColor: "black" }}
         >
           <View style={styles.user}>
-            {dowData.length > 0 && (
-              <StockChart name="DOW JONES INDEX" data={dowData} />
-            )}
-            <Divider style={{ backgroundColor: "gray", height: 0.5 }} />
-            {nasdqaData.length > 0 && (
-              <StockChart name="NASDAQ INDEX" data={nasdqaData} />
-            )}
-            <Divider style={{ backgroundColor: "gray", height: 0.5 }} />
-            {sp500Data.length > 0 && (
-              <StockChart name="S&P 500 INDEX" data={sp500Data} />
-            )}
+            <SectorChart />
           </View>
         </Card>
         <View style={styles.separator} />

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Platform } from "react-native";
 import Echarts from "native-echarts";
-import { apikey } from "../../secret";
 
 const StockChart = ({ data, name }) => {
   let stockData = data.slice(-30);
@@ -15,7 +14,7 @@ const StockChart = ({ data, name }) => {
       values.push([item["open"], item["close"], item["low"], item["high"]])
     );
   }
-  console.log(values, "data passed ");
+
   const option = {
     backgroundColor: "black",
     title: {
