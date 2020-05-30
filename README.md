@@ -6,7 +6,8 @@
 
 A mobile app built in 3 days to demonstrate stock market information by using a variety of charts, especially candlestick charts. In addition, used a tree­map (whcih now is not working, need API resource) to illustrate asset value for Cryptocurrency market.
 
-updated in May 2020 to adapt to all new packages and make the project alive again! 
+## Updated: 
+Updated In May 2020 to adapt to all new packages and make the project alive again! 
 
 ## Screen Shots demonstration
 
