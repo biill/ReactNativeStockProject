@@ -2,8 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
 
 import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/HomeScreen";
-import LinksScreen from "../screens/LinksScreen";
+
 import MarketOverview from "../screens/MarketOverview";
 import SectorScreen from "../screens/SectorScreen";
 import StockScreen from "../screens/StockScreen";
@@ -49,7 +48,8 @@ export default function BottomTabNavigator({ navigation, route }) {
           ),
         }}
       />
-      <BottomTab.Screen
+      {/* need find a API can grab Crypto currency information  
+       <BottomTab.Screen
         name="Crypto"
         component={HomeScreen}
         options={{
@@ -61,7 +61,7 @@ export default function BottomTabNavigator({ navigation, route }) {
             />
           ),
         }}
-      />
+      /> */}
     </BottomTab.Navigator>
   );
 }

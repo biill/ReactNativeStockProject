@@ -16,16 +16,22 @@ import {
   PagerDotIndicator,
 } from "react-native-best-viewpager";
 import Input from "../components/Stock/Input";
+import Chart from "../components/Stock/Chart";
+import InfoSlideOne from "../components/Stock/InfoSlideOne";
+import InfoSlideTwo from "../components/Stock/InfoSlideTwo";
+import InfoSlideThree from "../components/Stock/InfoSlideThree";
 
 export default function StockScreen() {
-  const [selectedStock, setSelectedStock] = useState(null);
-
+  const [selectedStock, setSelectedStock] = useState({ data: [], info: null });
   return (
     <View style={styles.container}>
       {Platform.OS === "ios" && <View style={styles.statusBar} />}
       <View style={styles.stocksBlock}>
-        <Input />
-        {/* <Chart /> */}
+        <Input
+          setSelectedStock={setSelectedStock}
+          selectedStock={selectedStock}
+        />
+        <Chart selectedStock={selectedStock} />
       </View>
       <View style={styles.detailedBlock}>
         <IndicatorViewPager
@@ -33,16 +39,13 @@ export default function StockScreen() {
           indicator={<PagerDotIndicator pageCount={3} />}
         >
           <View>
-            {/* <StockInfo1 /> */}
-            <Text style={styles.financeText}>test</Text>
+            {selectedStock.info && <InfoSlideOne info={selectedStock.info} />}
           </View>
           <View>
-            {/* <StockInfo2 /> */}
-            <Text style={styles.financeText}>test</Text>
+            {selectedStock.info && <InfoSlideTwo info={selectedStock.info} />}
           </View>
           <View>
-            {/* <StockInfo3 /> */}
-            <Text style={styles.financeText}>test</Text>
+            {selectedStock.info && <InfoSlideThree info={selectedStock.info} />}
           </View>
         </IndicatorViewPager>
       </View>
@@ -52,13 +55,16 @@ export default function StockScreen() {
           onPress={() => console.log("will add press function")}
         >
           {/* underlayColor="#202020" */}
-
-          {/* <Text style={styles.financeText}>{info["symbol"]}</Text> */}
-          <Text style={styles.financeText}>test</Text>
+          <Text style={styles.financeText}>
+            {selectedStock.info && selectedStock.info["symbol"]}
+          </Text>
         </TouchableHighlight>
 
         <View style={styles.footerMiddle}>
-          {/* <Text style={styles.marketTimeText}>BETA: {parseFloat(info['beta']).toFixed(2)}</Text> */}
+          <Text style={styles.marketTimeText}>
+            {selectedStock.info &&
+              `BETA: ${parseFloat(selectedStock.info["beta"]).toFixed(2)}`}
+          </Text>
         </View>
         <TouchableHighlight
           style={styles.settings}

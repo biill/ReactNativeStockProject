@@ -3,8 +3,8 @@ import { StyleSheet, View, Platform } from "react-native";
 import Echarts from "native-echarts";
 import { useEffect, useState } from "react";
 import axios from "axios";
-const SectorChart = () => {
-  const [sectorData, setSectorData] = useState([]);
+const CryptoTreeMap = () => {
+  const [cryptoData, setCryptoData] = useState(null);
   const fetchSector = async () => {
     try {
       const sectorRes = await axios.get(

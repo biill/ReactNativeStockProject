@@ -10,17 +10,21 @@ import {
 import { Button, Input } from "react-native-elements";
 import axios from "axios";
 
-export default function InputForm() {
+export default function InputForm({ setSelectedStock, selectedStock }) {
   const [searchText, setSearchText] = useState("");
-  const [selectedStock, setSelectedStock] = useState([]);
 
   const fetchStock = async () => {
     try {
       const res = await axios.get(
         `https://sandbox.iexapis.com/stable/stock/${searchText}/chart/1y?token=Tsk_9b260400520a4d23abfe1ef6cb0d3feb`
       );
-      setSelectedStock(res.data);
-      console.log(selectedStock, "stock");
+      const infoRes = await axios.get(
+        `https://sandbox.iexapis.com/stable/stock/${searchText}/advanced-stats?token=Tsk_9b260400520a4d23abfe1ef6cb0d3feb`
+      );
+      setSelectedStock({
+        data: res.data,
+        info: { ...infoRes.data, symbol: searchText.toUpperCase() },
+      });
     } catch (error) {
       console.log(error);
     }

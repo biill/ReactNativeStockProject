@@ -7,7 +7,6 @@ export const convertStockData = (res) => {
     Object.entries(data).map((item) => result.push(item));
   }
 
-  // console.log(res.data["Time Series (Daily)"], "covert");
   return result;
 };
 
